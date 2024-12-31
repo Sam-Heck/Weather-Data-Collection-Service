@@ -10,5 +10,8 @@
     },
     "author": "Sameul Heck",
     "dependencies": {
-    }
+        "dotenv": "^16.4.7",
+        "ts-node": "^10.9.2"
+    },
+    "type": "module"
 }
