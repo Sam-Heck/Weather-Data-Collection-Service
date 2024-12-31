@@ -1,0 +1,14 @@
+{
+    "name": "weather-data-collection-service",
+    "version": "1.0.0",
+    "description": "Collects and stores weather data for multiple cities",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "dev": "ts-node src/index.ts"
+    },
+    "author": "Sameul Heck",
+    "dependencies": {
+    }
+}
