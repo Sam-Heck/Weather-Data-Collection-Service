@@ -1,6 +1,6 @@
 import { Coord, WeatherCondition, MainWeatherData, Wind, Rain, Snow, Clouds, SystemData } from "./CommonWeatherModels";
 
-export interface CurrentWeatherData {
+export interface CurrentWeatherModel {
     coord: Coord;
     weather: WeatherCondition[];
     base: string;
