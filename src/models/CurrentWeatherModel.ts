@@ -1,4 +1,4 @@
-import { Coord, WeatherCondition, MainWeatherData, Wind, Rain, Snow, Clouds, SystemData } from "./CommonWeatherModels";
+import { Coord, WeatherCondition, MainWeatherData, Wind, Rain, Snow, Clouds, SystemData } from "./CommonWeatherModels.js";
 
 export interface CurrentWeatherModel {
     coord: Coord;

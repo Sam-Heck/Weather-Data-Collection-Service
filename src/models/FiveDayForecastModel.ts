@@ -1,4 +1,4 @@
-import { ForecastList, City } from "./CommonWeatherModels";
+import { ForecastList, City } from "./CommonWeatherModels.js";
 
 export interface FiveDayWeatherForecast {
     cod: string;

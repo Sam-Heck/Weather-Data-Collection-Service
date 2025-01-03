@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "outDir": "/dist",
+        "module": "NodeNext",
+        // "moduleResolution": "nodenext",
+        "outDir": "./dist",
         "rootDir": "./src",
         "strict": true,
         "esModuleInterop": true
