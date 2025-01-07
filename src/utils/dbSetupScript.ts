@@ -1,10 +1,14 @@
 import pool from './MySqlClient.js'
 
-async function setupDatabase() {
+export async function setupDatabase():Promise<void> {
     try {
+        console.log('Starting database setup...');
+
         await pool.query('CREATE DATABASE IF NOT EXISTS weather_data_collection_service');
+        console.log('Database created or already exists');
 
         await pool.query('USE weather_data_collection_service')
+        console.log('Using weather_data_collection_service database.');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS city (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,6 +19,7 @@ async function setupDatabase() {
                 timezone INT
             )
         `)
+        console.log('City table created or already exists');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS current_weather (
                 city_id INT NOT NULL,
@@ -33,6 +38,7 @@ async function setupDatabase() {
                 FOREIGN KEY (city_id) REFERENCES city(id)
             )
         `)
+        console.log('Current_weather table created or already exists');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS forecast_weather (
                 city_id INT NOT NULL,
@@ -52,7 +58,11 @@ async function setupDatabase() {
                 FOREIGN KEY (city_id) REFERENCES city(id)
             )
         `)
-    } catch (error) {
-        // add error handling
+        console.log('Forecast_weather created or already exists');
+
+        console.log('Database setup completed successfully');
+    } catch (error: any) {
+        console.error('Error occuring during database setup: ', error.message)
+        throw new Error('Database setup failed. See logs for details.');
     }
 }
