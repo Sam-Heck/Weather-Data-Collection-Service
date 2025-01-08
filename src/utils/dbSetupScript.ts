@@ -16,14 +16,15 @@ export async function setupDatabase():Promise<void> {
                 country CHAR(2),
                 lat DOUBLE NOT NULL,
                 lon DOUBLE NOT NULL,
-                timezone INT
+                timezone INT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             )
         `)
         console.log('City table created or already exists');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS current_weather (
                 city_id INT NOT NULL,
-                forecast_time INT NOT NULL,
+                dt INT NOT NULL,
                 weather_condition VARCHAR(50),
                 condition_desc VARCHAR(100),
                 temp FLOAT,
@@ -34,6 +35,8 @@ export async function setupDatabase():Promise<void> {
                 wind_speed FLOAT,
                 wind_deg SMALLINT UNSIGNED,
                 clouds TINYINT UNSIGNED,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (city_id, forecast_time),
                 FOREIGN KEY (city_id) REFERENCES city(id)
             )
@@ -42,7 +45,7 @@ export async function setupDatabase():Promise<void> {
 
         await pool.query(`CREATE TABLE IF NOT EXISTS forecast_weather (
                 city_id INT NOT NULL,
-                forecast_time INT NOT NULL,
+                dt INT NOT NULL,
                 weather_condition VARCHAR(50),
                 condition_desc VARCHAR(100),
                 temp FLOAT,
@@ -54,6 +57,8 @@ export async function setupDatabase():Promise<void> {
                 wind_deg SMALLINT UNSIGNED,
                 clouds TINYINT UNSIGNED,
                 precipitation FLOAT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (city_id, forecast_time),
                 FOREIGN KEY (city_id) REFERENCES city(id)
             )
