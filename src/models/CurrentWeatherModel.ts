@@ -17,18 +17,3 @@ export interface CurrentWeatherModel {
     name: string;
     cod: number;
 }
-
-export interface CurrentWeatherDbSchema {
-    city_id: number;
-    forecast_time: number;
-    weather_condition: string;
-    condition_desc: string;
-    temp: number;
-    feels_like: number;
-    pressure: number;
-    humidity: number;
-    visibility: number;
-    wind_speed: number;
-    wind_deg: number;
-    clouds: number;
-}
