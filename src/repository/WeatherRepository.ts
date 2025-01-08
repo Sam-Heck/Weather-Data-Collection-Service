@@ -1,12 +1,12 @@
 import { pool } from '../utils/MySqlClient.js'
-import { CurrentWeatherDbSchema } from '../models/CurrentWeatherModel.js'
-import { FiveDayForecastDbSchema } from '../models/FiveDayForecastModel.js'
+import { CurrentWeatherDbSchema, FiveDayForecastDbSchema, CityDbSchema } from '../models/DbSchemas.js'
 
 export class weatherRepository {
 
-    async saveCity(): Promise<void> {
+    async addCity(cityData): Promise<void> {
         try {
             // save city data to db. need to define a city interface in models.
+            // lookup city data by longitude and latitude
         } catch(error) {
 
         }
