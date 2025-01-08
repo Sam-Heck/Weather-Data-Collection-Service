@@ -10,9 +10,15 @@ export class WeatherService {
     constructor(private httpClient: HttpClient) {}
 
     async getCurrentWeather(lat: number, lon: number): Promise<CurrentWeatherDbSchema> {
-        const url = `${this.currentWeatherUrl}lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
         try {
-            const response = await this.httpClient.get(url);
+            const response = await this.httpClient.get(this.currentWeatherUrl, {
+                params: {
+                    lat: lat,
+                    lon: lon,
+                    units: 'imperial',
+                    appid: process.env.WEATHER_API_KEY
+                }
+            });
             return this.transformCurrentWeatherData(response);
         } catch (error) {
             console.error(`Error fetching current weather for latitude: ${lat} and longitude: ${lon}`);
@@ -23,7 +29,14 @@ export class WeatherService {
     async getFiveDayForecast(lat: number, lon: number): Promise<FiveDayForecastDbSchema[]> {
         const url = `${this.fiveDayForecastUrl}lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
         try {
-            const response = await this.httpClient.get(url);
+            const response = await this.httpClient.get(this.fiveDayForecastUrl, {
+                params: {
+                    lat: lat,
+                    lon: lon,
+                    units: 'imperial',
+                    appid: process.env.WEATHER_API_KEY
+                }
+            });
             return this.transformForecastWeatherData(response);
         } catch (error) {
             console.error(`Error fetching five day forecast for latitude: ${lat} and longitude: ${lon}`);
