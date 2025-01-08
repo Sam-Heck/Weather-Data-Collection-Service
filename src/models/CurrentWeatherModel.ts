@@ -2,7 +2,7 @@ import { Coord, WeatherCondition, MainWeatherData, Wind, Rain, Snow, Clouds, Sys
 
 export interface CurrentWeatherModel {
     coord: Coord;
-    weather: WeatherCondition[];
+    weather: WeatherCondition;
     base: string;
     main: MainWeatherData;
     visibility: number;
@@ -16,4 +16,19 @@ export interface CurrentWeatherModel {
     id: number;
     name: string;
     cod: number;
+}
+
+export interface CurrentWeatherDbSchema {
+    city_id: number;
+    forecast_time: number;
+    weather_condition: string;
+    condition_desc: string;
+    temp: number;
+    feels_like: number;
+    pressure: number;
+    humidity: number;
+    visibility: number;
+    wind_speed: number;
+    wind_deg: number;
+    clouds: number;
 }
