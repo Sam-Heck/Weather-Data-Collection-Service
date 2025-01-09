@@ -1,10 +1,11 @@
 import { WeatherService } from "./services/WeatherService.js";
 import { AxiosHttpClient } from "./utils/AxiosHttpClient.js";
 import { setupDatabase } from "./utils/dbSetupScript.js";
-import { cities } from './data/cities.js'
+import { WeatherRepository } from "./repository/WeatherRepository.js";
 
 const axiosClient = new AxiosHttpClient();
 const weatherService = new WeatherService(axiosClient);
+const weatherRepository = new WeatherRepository();
 
 async function main() {
     try {

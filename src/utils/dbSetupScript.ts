@@ -1,4 +1,4 @@
-import pool from './MySqlClient.js'
+import { pool } from './MySqlClient.js'
 
 export async function setupDatabase():Promise<void> {
     try {
