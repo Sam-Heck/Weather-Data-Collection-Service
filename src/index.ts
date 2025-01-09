@@ -1,7 +1,8 @@
-import { WeatherService } from "./services/WeatherService.js";
-import { AxiosHttpClient } from "./utils/AxiosHttpClient.js";
 import { setupDatabase } from "./utils/dbSetupScript.js";
+import { AxiosHttpClient } from "./utils/AxiosHttpClient.js";
+import { WeatherService } from "./services/WeatherService.js";
 import { WeatherRepository } from "./repository/WeatherRepository.js";
+import { fetchWeatherTask } from "./tasks/fetchWeatherTask.js";
 
 const axiosClient = new AxiosHttpClient();
 const weatherService = new WeatherService(axiosClient);
@@ -11,13 +12,12 @@ async function main() {
     try {
         // Initialize database
         await setupDatabase();
-        
-        
         console.log('Starting the application...');
-        // call a fetch weather function, which cycles through cities to fetch the weather and save it to the database
-
+        
+        // start fetchWeather task
+        await fetchWeatherTask(weatherService, weatherRepository);
     } catch(error: any) {
-        console.error('Failed to initialize the applicaiton: ', error.message);
+        console.error('Failed to initialize the application: ', error);
         process.exit(1);
     }
 }
