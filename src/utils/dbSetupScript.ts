@@ -10,20 +10,9 @@ export async function setupDatabase():Promise<void> {
         await pool.query('USE weather_data_collection_service')
         console.log('Using weather_data_collection_service database.');
 
-        await pool.query(`CREATE TABLE IF NOT EXISTS city (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                name VARCHAR(100) NOT NULL,
-                country CHAR(2),
-                lat DOUBLE NOT NULL,
-                lon DOUBLE NOT NULL,
-                timezone INT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            )
-        `)
-        console.log('City table created or already exists');
-
         await pool.query(`CREATE TABLE IF NOT EXISTS current_weather (
-                city_id INT NOT NULL,
+                lat INT NOT NULL,
+                lon, INT NOT NULL,
                 dt INT NOT NULL,
                 weather_condition VARCHAR(50),
                 condition_desc VARCHAR(100),
@@ -37,14 +26,14 @@ export async function setupDatabase():Promise<void> {
                 clouds TINYINT UNSIGNED,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                PRIMARY KEY (city_id, forecast_time),
-                FOREIGN KEY (city_id) REFERENCES city(id)
+                PRIMARY KEY (lat, lon, dt)
             )
         `)
         console.log('Current_weather table created or already exists');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS forecast_weather (
-                city_id INT NOT NULL,
+                lat INT NOT NULL,
+                lon INT NOT NULL,
                 dt INT NOT NULL,
                 weather_condition VARCHAR(50),
                 condition_desc VARCHAR(100),
@@ -59,8 +48,7 @@ export async function setupDatabase():Promise<void> {
                 precipitation FLOAT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                PRIMARY KEY (city_id, forecast_time),
-                FOREIGN KEY (city_id) REFERENCES city(id)
+                PRIMARY KEY (lat, lon, dt)
             )
         `)
         console.log('Forecast_weather created or already exists');

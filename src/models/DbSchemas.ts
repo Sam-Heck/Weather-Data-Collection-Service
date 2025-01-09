@@ -1,15 +1,7 @@
-export interface CityDbSchema {
-    id: number;
-    name: string;
-    country: string;
+export interface CurrentWeatherDbSchema {
     lat: number;
     lon: number;
-    timezone: number;
-}
-
-export interface CurrentWeatherDbSchema {
-    city_id: number;
-    forecast_time: number;
+    dt: number;
     weather_condition: string;
     condition_desc: string;
     temp: number;
@@ -23,8 +15,9 @@ export interface CurrentWeatherDbSchema {
 }
 
 export interface FiveDayForecastDbSchema {
-    city_id: number;
-    forecast_time: number;
+    lat: number;
+    lon: number;
+    dt: number;
     weather_condition: string;
     condition_desc: string;
     temp: number;

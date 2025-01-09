@@ -1,7 +1,8 @@
 import 'dotenv/config'
 import { HttpClient } from "../utils/HttpClient.js";
-import { CurrentWeatherModel, CurrentWeatherDbSchema } from "../models/CurrentWeatherModel.js";
-import { FiveDayForecastModel, FiveDayForecastDbSchema } from "../models/FiveDayForecastModel.js";
+import { CurrentWeatherModel } from "../models/CurrentWeatherModel.js";
+import { FiveDayForecastModel } from "../models/FiveDayForecastModel.js";
+import { CurrentWeatherDbSchema, FiveDayForecastDbSchema } from '../models/DbSchemas.js';
 
 export class WeatherService {
     private currentWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?";
@@ -46,8 +47,9 @@ export class WeatherService {
 
     private transformCurrentWeatherData(response: CurrentWeatherModel) {
         const data: CurrentWeatherDbSchema = {
-            city_id: response.id,
-            forecast_time: response.dt,
+            lat: response.coord.lat,
+            lon: response.coord.lon,
+            dt: response.dt,
             weather_condition: response.weather.main,
             condition_desc: response.weather.description,
             temp: response.main.temp,
@@ -67,8 +69,9 @@ export class WeatherService {
         const data: FiveDayForecastDbSchema[]= [];
         for (const entry of response.list) {
             const record: FiveDayForecastDbSchema = {
-                city_id: response.city.id,
-                forecast_time: entry.dt,
+                lat: response.city.coord.lat,
+                lon: response.city.coord.lon,
+                dt: entry.dt,
                 weather_condition: entry.weather.main,
                 condition_desc: entry.weather.description,
                 temp: entry.main.temp,

@@ -1,6 +1,6 @@
 export interface Coord {
     lat: number;
-    long: number;
+    lon: number;
 }
 
 export interface WeatherCondition {
