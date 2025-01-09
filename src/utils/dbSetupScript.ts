@@ -11,8 +11,8 @@ export async function setupDatabase():Promise<void> {
         console.log('Using weather_data_collection_service database.');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS current_weather (
-                lat INT NOT NULL,
-                lon, INT NOT NULL,
+                lat FLOAT NOT NULL,
+                lon FLOAT NOT NULL,
                 dt INT NOT NULL,
                 weather_condition VARCHAR(50),
                 condition_desc VARCHAR(100),
@@ -32,8 +32,8 @@ export async function setupDatabase():Promise<void> {
         console.log('Current_weather table created or already exists');
 
         await pool.query(`CREATE TABLE IF NOT EXISTS forecast_weather (
-                lat INT NOT NULL,
-                lon INT NOT NULL,
+                lat FLOAT NOT NULL,
+                lon FLOAT NOT NULL,
                 dt INT NOT NULL,
                 weather_condition VARCHAR(50),
                 condition_desc VARCHAR(100),
