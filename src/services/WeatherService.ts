@@ -5,8 +5,8 @@ import { FiveDayForecastModel } from "../models/FiveDayForecastModel.js";
 import { CurrentWeatherDbSchema, FiveDayForecastDbSchema } from '../models/DbSchemas.js';
 
 export class WeatherService {
-    private currentWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?";
-    private fiveDayForecastUrl = "https://api.openweathermap.org/data/2.5/forecast?"
+    private currentWeatherUrl = "https://api.openweathermap.org/data/2.5/weather";
+    private fiveDayForecastUrl = "https://api.openweathermap.org/data/2.5/forecast";
 
     constructor(private httpClient: HttpClient) {}
 
@@ -22,13 +22,12 @@ export class WeatherService {
             });
             return this.transformCurrentWeatherData(response);
         } catch (error) {
-            console.error(`Error fetching current weather for latitude: ${lat} and longitude: ${lon}`);
+            console.error(`Error fetching current weather for latitude: ${lat} and longitude: ${lon}`, error);
             throw new Error("Unable to retrieve current weather.");
         }
     }
 
     async getFiveDayForecast(lat: number, lon: number): Promise<FiveDayForecastDbSchema[]> {
-        const url = `${this.fiveDayForecastUrl}lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
         try {
             const response = await this.httpClient.get(this.fiveDayForecastUrl, {
                 params: {
@@ -40,7 +39,7 @@ export class WeatherService {
             });
             return this.transformForecastWeatherData(response);
         } catch (error) {
-            console.error(`Error fetching five day forecast for latitude: ${lat} and longitude: ${lon}`);
+            console.error(`Error fetching five day forecast for latitude: ${lat} and longitude: ${lon}`, error);
             throw new Error("Unable to retrieve five day forecast.");
         }
     }
