@@ -15,7 +15,7 @@ The **Weather Data Collection Service** is a Node.js application designed to reg
 ### Prerequisites
 1. **Node.js**: Ensure you have Node.js installed (v16 or higher).
 2. **MySQL Database**: Ensure you have access to a MySQL database server.
-3. **OpenWeatherMap API Key**: Obtain an API key from [OpenWeatherMap](https://openweathermap.org/api).
+3. **OpenWeatherMap API Key**: Obtain a free API key from [OpenWeatherMap](https://openweathermap.org/api).
 
 ### Installation
 
@@ -105,10 +105,10 @@ The **Weather Data Collection Service** is a Node.js application designed to reg
 ---
 
 ## Future Enhancements
-- Add support for additional weather APIs.
+- Improve error handling and add error logging.
+- Implement retry policies for API failures.
 - Implement caching mechanisms to reduce redundant API calls.
-- Create a web-based dashboard for real-time data monitoring.
-- Extend the database schema to support historical data storage.
+- Add support for additional weather APIs.
 
 ---
 
