@@ -1,7 +1,5 @@
 import 'dotenv/config'
 import { HttpClient } from "../utils/HttpClient.js";
-import { CurrentWeatherModel } from "../models/CurrentWeatherModel.js";
-import { FiveDayForecastModel } from "../models/FiveDayForecastModel.js";
 import { WeatherDataTransformer } from './WeatherDataTransformer.js';
 import { CurrentWeatherDbSchema, FiveDayForecastDbSchema } from '../models/DbSchemas.js';
 
