@@ -1,6 +1,14 @@
-import { pool } from './MySqlClient.js'
+import mysql from 'mysql2/promise.js'
+import 'dotenv/config'
+
 
 async function setupDatabase():Promise<void> {
+    const pool = mysql.createPool({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+    });
+    
     try {
         console.log('Starting database setup...');
 
