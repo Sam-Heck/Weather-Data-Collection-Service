@@ -1,5 +1,6 @@
 import { WeatherService } from "../../services/WeatherService.js";
 import { AxiosHttpClient } from "../../utils/AxiosHttpClient.js";
+import { WeatherDataTransformer } from "../../services/WeatherDataTransformer.js";
 import 'dotenv/config'
 
 jest.mock("../../utils/AxiosHttpClient.ts")
@@ -7,10 +8,11 @@ jest.mock("../../utils/AxiosHttpClient.ts")
 describe("WeatherService", () => {
     let weatherService: WeatherService;
     const mockHttpClient = new AxiosHttpClient() as jest.Mocked<AxiosHttpClient>;
+    const mockDataTransformer = new WeatherDataTransformer() as jest.Mocked<WeatherDataTransformer>;
 
     
     beforeEach(() => {
-        weatherService = new WeatherService(mockHttpClient);
+        weatherService = new WeatherService(mockHttpClient, mockDataTransformer);
     });
     
     it("should fetch current weather data", async () => {

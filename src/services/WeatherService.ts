@@ -2,14 +2,19 @@ import 'dotenv/config'
 import { HttpClient } from "../utils/HttpClient.js";
 import { CurrentWeatherModel } from "../models/CurrentWeatherModel.js";
 import { FiveDayForecastModel } from "../models/FiveDayForecastModel.js";
+import { WeatherDataTransformer } from './WeatherDataTransformer.js';
+import { CurrentWeatherDbSchema, FiveDayForecastDbSchema } from '../models/DbSchemas.js';
 
 export class WeatherService {
     private currentWeatherUrl = "https://api.openweathermap.org/data/2.5/weather";
     private fiveDayForecastUrl = "https://api.openweathermap.org/data/2.5/forecast";
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(
+        private httpClient: HttpClient, 
+        private dataTransformer: WeatherDataTransformer
+    ) {}
 
-    async getCurrentWeather(lat: number, lon: number): Promise<CurrentWeatherModel> {
+    async getCurrentWeather(lat: number, lon: number): Promise<CurrentWeatherDbSchema> {
         try {
             const response = await this.httpClient.get(this.currentWeatherUrl, {
                 params: {
@@ -19,14 +24,14 @@ export class WeatherService {
                     appid: process.env.WEATHER_API_KEY
                 }
             });
-            return response;
+            return this.dataTransformer.transformCurrentWeatherData(response);
         } catch (error) {
             console.error(`Error fetching current weather for latitude: ${lat} and longitude: ${lon}`, error);
             throw new Error("Unable to retrieve current weather.");
         }
     }
 
-    async getFiveDayForecast(lat: number, lon: number): Promise<FiveDayForecastModel> {
+    async getFiveDayForecast(lat: number, lon: number): Promise<FiveDayForecastDbSchema[]> {
         try {
             const response = await this.httpClient.get(this.fiveDayForecastUrl, {
                 params: {
@@ -36,7 +41,7 @@ export class WeatherService {
                     appid: process.env.WEATHER_API_KEY
                 }
             });
-            return response;
+            return this.dataTransformer.transformForecastWeatherData(response);
         } catch (error) {
             console.error(`Error fetching five day forecast for latitude: ${lat} and longitude: ${lon}`, error);
             throw new Error("Unable to retrieve five day forecast.");

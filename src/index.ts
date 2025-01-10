@@ -7,12 +7,11 @@ import { WeatherDataTransformer } from "./services/WeatherDataTransformer.js";
 import { cities } from "./data/cities.js";
 
 const axiosClient = new AxiosHttpClient();
-const weatherService = new WeatherService(axiosClient);
 const weatherDataTransformer = new WeatherDataTransformer();
+const weatherService = new WeatherService(axiosClient, weatherDataTransformer);
 const weatherRepository = new WeatherRepository();
 const fetchWeatherTask = new FetchWeatherTask(
     weatherService,
-    weatherDataTransformer,
     weatherRepository,
     cities
 )
@@ -21,7 +20,7 @@ async function main() {
     try {
         // Initialize database
         await setupDatabase();
-        
+
         console.log('Starting the application...');
         fetchWeatherTask.start();
     } catch(error: any) {

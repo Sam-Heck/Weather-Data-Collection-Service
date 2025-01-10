@@ -8,7 +8,6 @@ export class FetchWeatherTask {
     private startTime: Date;
     constructor(
         private weatherService: WeatherService, 
-        private dataTransformer: WeatherDataTransformer, 
         private weatherRepository: WeatherRepository,
         private cities: City[],
         private intervalMs: number = 60000
@@ -19,15 +18,13 @@ export class FetchWeatherTask {
     private async fetchWeather(): Promise<void> {
         for (const city of this.cities) {
             try {
-                // Fetch, transform, and save current weather data
+                // Fetchand save current weather data
                 const currentWeatherData = await this.weatherService.getCurrentWeather(city.lat, city.lon);
-                const transformedCurrentWeatherData = this.dataTransformer.transformCurrentWeatherData(currentWeatherData);
-                await this.weatherRepository.saveCurrentWeather(transformedCurrentWeatherData);
+                await this.weatherRepository.saveCurrentWeather(currentWeatherData);
 
-                // Fetch, transform, and save forecast weather data
+                // Fetch and save forecast weather data
                 const forecastWeatherData = await this.weatherService.getFiveDayForecast(city.lat, city.lon);
-                const transformedForecastWeatherData = this.dataTransformer.transformForecastWeatherData(forecastWeatherData);
-                await this.weatherRepository.saveForecastWeather(transformedForecastWeatherData);
+                await this.weatherRepository.saveForecastWeather(forecastWeatherData);
             } catch(error) {
                 console.error(`Error fetching weather data for city: ${city.name}`, error);
             }
