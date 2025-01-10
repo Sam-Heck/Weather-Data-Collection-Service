@@ -1,6 +1,6 @@
 import { pool } from './MySqlClient.js'
 
-export async function setupDatabase():Promise<void> {
+async function setupDatabase():Promise<void> {
     try {
         console.log('Starting database setup...');
 
@@ -54,8 +54,11 @@ export async function setupDatabase():Promise<void> {
         console.log('Forecast_weather created or already exists');
 
         console.log('Database setup completed successfully');
+        process.exit(0);
     } catch (error: any) {
         console.error('Error occuring during database setup: ', error.message)
-        throw new Error('Database setup failed. See logs for details.');
+        process.exit(1);
     }
 }
+
+setupDatabase();

@@ -4,6 +4,7 @@
   "description": "Collects and stores weather data for multiple cities",
   "main": "dist/index.js",
   "scripts": {
+    "setup-db": "node dist/utils/dbSetup.js",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "node --loader ts-node/esm src/index.ts",
