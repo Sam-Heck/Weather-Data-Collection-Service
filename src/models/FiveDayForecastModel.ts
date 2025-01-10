@@ -6,9 +6,4 @@ export interface FiveDayForecastModel {
     cnt: number;
     list: ForecastList[];
     city: City;
-    country: string;
-    population: number;
-    timezone: number;
-    sunrise: number;
-    sunset: number;
 }

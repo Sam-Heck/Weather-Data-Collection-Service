@@ -54,13 +54,13 @@ export interface SystemData {
 export interface ForecastList {
     dt: number;
     main: MainWeatherData;
-    weather: WeatherCondition;
+    weather: WeatherCondition[];
     clouds: Clouds;
     wind: Wind;
     visibility: number;
     pop: number;
-    rain: Rain;
-    snow: Snow;
+    rain?: Rain;
+    snow?: Snow;
     sys: {
         pod: string;
     },
@@ -71,4 +71,9 @@ export interface City {
     id: number;
     name: string;
     coord: Coord;
+    country: string;
+    population: number;
+    timezone: number;
+    sunrise: number;
+    sunset: number;
 }
